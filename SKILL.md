@@ -35,7 +35,7 @@ curl -X POST "$MC_SUPABASE_URL/rest/v1/agents" \
   -H "apikey: $MC_ANON_KEY" \
   -H "Content-Type: application/json" \
   -d '{
-    "agent_id": "cheenu",
+    "id": "cheenu",
     "capabilities": ["coding", "research", "writing"],
     "is_active": true,
     "comms_endpoint": "discord:1465633971810336779"

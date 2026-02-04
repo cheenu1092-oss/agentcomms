@@ -25,7 +25,7 @@ case "$FILTER" in
     echo "📋 Pending tasks (unclaimed):"
     ;;
   --mine|*)
-    QUERY="or=(to_agent.eq.${AGENT_ID},claimed_by.eq.${AGENT_ID})&status=neq.completed&order=created_at.desc"
+    QUERY="to_agent=eq.${AGENT_ID}&status=neq.completed&order=created_at.desc"
     echo "📋 Tasks for ${AGENT_ID}:"
     ;;
 esac
@@ -33,4 +33,4 @@ esac
 echo ""
 curl -sS "${MC_SUPABASE_URL}/rest/v1/task_handoffs?${QUERY}" \
   -H "apikey: ${MC_ANON_KEY}" \
-  -H "Authorization: Bearer ${MC_ANON_KEY}" | jq -r '.[] | "[\(.status)] \(.id[:8])... | \(.task) | from: \(.from_agent)"'
+  -H "Authorization: Bearer ${MC_ANON_KEY}" | jq -r '.[] | "[\(.status)] \(.id[:8])... | \(.title // .task // "no title") | from: \(.from_agent)"'

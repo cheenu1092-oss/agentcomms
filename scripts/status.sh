@@ -17,7 +17,7 @@ if [[ "${1:-}" == "--check" ]]; then
     exit 1
   fi
   
-  curl -sS "${MC_SUPABASE_URL}/rest/v1/agents?agent_id=eq.${AGENT_ID}" \
+  curl -sS "${MC_SUPABASE_URL}/rest/v1/agents?id=eq.${AGENT_ID}" \
     -H "apikey: ${MC_ANON_KEY}" \
     -H "Authorization: Bearer ${MC_ANON_KEY}" | jq .
   exit 0

@@ -19,4 +19,4 @@ echo ""
 
 curl -sS "${MC_SUPABASE_URL}/rest/v1/agents?is_active=eq.${ACTIVE}&order=last_seen.desc" \
   -H "apikey: ${MC_ANON_KEY}" \
-  -H "Authorization: Bearer ${MC_ANON_KEY}" | jq -r '.[] | "[active=\(.is_active)] \(.agent_id) - \(.capabilities // [] | join(", ")) | \(.comms_endpoint // "no endpoint")"'
+  -H "Authorization: Bearer ${MC_ANON_KEY}" | jq -r '.[] | "[active=\(.is_active)] \(.id) - \(.capabilities // [] | join(", ")) | \(.comms_endpoint // "no endpoint")"'
