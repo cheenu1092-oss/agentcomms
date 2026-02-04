@@ -21,7 +21,7 @@ RESULT=$(curl -sS -X PATCH "${MC_SUPABASE_URL}/rest/v1/task_handoffs?id=eq.${TAS
   -H "Content-Type: application/json" \
   -H "Prefer: return=representation" \
   -d "{
-    \"status\": \"completed\",
+    \"status\": \"done\",
     \"completed_at\": \"$(date -u +%Y-%m-%dT%H:%M:%SZ)\",
     \"result\": {\"message\": \"${RESULT_MSG}\", \"completed_by\": \"${AGENT_ID:-unknown}\"}
   }")
