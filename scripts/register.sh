@@ -26,7 +26,8 @@ curl -sS -X POST "${MC_SUPABASE_URL}/rest/v1/agents" \
   -H "Prefer: return=representation,resolution=merge-duplicates" \
   -d "{
     \"id\": \"${AGENT_ID}\",
-    \"display_name\": \"${AGENT_ID}\",
+    \"display_name\": \"${DISPLAY_NAME:-${AGENT_ID}}\",
+    \"role\": \"${ROLE:-agent}\",
     \"capabilities\": ${CAPS_JSON},
     \"is_active\": true,
     \"comms_endpoint\": \"discord:${DISCORD_USER_ID:-unknown}\",
