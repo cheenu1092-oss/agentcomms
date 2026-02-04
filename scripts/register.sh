@@ -19,16 +19,17 @@ fi
 # Convert comma-separated to JSON array
 CAPS_JSON=$(echo "$CAPABILITIES" | tr ',' '\n' | jq -R . | jq -s .)
 
-curl -sS -X POST "${MC_SUPABASE_URL}/rest/v1/agent_registry" \
+curl -sS -X POST "${MC_SUPABASE_URL}/rest/v1/agents" \
   -H "apikey: ${MC_ANON_KEY}" \
   -H "Authorization: Bearer ${MC_ANON_KEY}" \
   -H "Content-Type: application/json" \
-  -H "Prefer: return=representation" \
+  -H "Prefer: return=representation,resolution=merge-duplicates" \
+  -H "On-Conflict: agent_id" \
   -d "{
     \"agent_id\": \"${AGENT_ID}\",
     \"capabilities\": ${CAPS_JSON},
-    \"status\": \"online\",
-    \"endpoint\": \"discord:${DISCORD_USER_ID:-unknown}\",
+    \"is_active\": true,
+    \"comms_endpoint\": \"discord:${DISCORD_USER_ID:-unknown}\",
     \"last_seen\": \"$(date -u +%Y-%m-%dT%H:%M:%SZ)\"
   }" | jq .
 

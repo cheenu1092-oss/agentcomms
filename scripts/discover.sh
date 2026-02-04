@@ -7,16 +7,16 @@ set -euo pipefail
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 source "$SCRIPT_DIR/../.env" 2>/dev/null || true
 
-STATUS="${1:-online}"
+ACTIVE="${1:-true}"
 
 if [[ -z "${MC_SUPABASE_URL:-}" || -z "${MC_ANON_KEY:-}" ]]; then
   echo "❌ Missing MC_SUPABASE_URL or MC_ANON_KEY in .env"
   exit 1
 fi
 
-echo "🔍 Discovering agents with status: ${STATUS}"
+echo "🔍 Discovering agents (active: ${ACTIVE})"
 echo ""
 
-curl -sS "${MC_SUPABASE_URL}/rest/v1/agent_registry?status=eq.${STATUS}&order=last_seen.desc" \
+curl -sS "${MC_SUPABASE_URL}/rest/v1/agents?is_active=eq.${ACTIVE}&order=last_seen.desc" \
   -H "apikey: ${MC_ANON_KEY}" \
-  -H "Authorization: Bearer ${MC_ANON_KEY}" | jq -r '.[] | "[\(.status)] \(.agent_id) - \(.capabilities | join(", ")) | \(.endpoint)"'
+  -H "Authorization: Bearer ${MC_ANON_KEY}" | jq -r '.[] | "[active=\(.is_active)] \(.agent_id) - \(.capabilities // [] | join(", ")) | \(.comms_endpoint // "no endpoint")"'

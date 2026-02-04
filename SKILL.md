@@ -31,21 +31,21 @@ AgentComms enables agents to:
 
 ```bash
 # With MC configured
-curl -X POST "$MC_SUPABASE_URL/rest/v1/agent_registry" \
+curl -X POST "$MC_SUPABASE_URL/rest/v1/agents" \
   -H "apikey: $MC_ANON_KEY" \
   -H "Content-Type: application/json" \
   -d '{
     "agent_id": "cheenu",
     "capabilities": ["coding", "research", "writing"],
-    "status": "online",
-    "endpoint": "discord:1465633971810336779"
+    "is_active": true,
+    "comms_endpoint": "discord:1465633971810336779"
   }'
 ```
 
 ### 2. Discover Agents
 
 ```bash
-curl "$MC_SUPABASE_URL/rest/v1/agent_registry?status=eq.online" \
+curl "$MC_SUPABASE_URL/rest/v1/agents?is_active=eq.true" \
   -H "apikey: $MC_ANON_KEY"
 ```
 
