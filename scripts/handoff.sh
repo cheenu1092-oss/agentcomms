@@ -26,9 +26,9 @@ RESULT=$(curl -sS -X POST "${MC_SUPABASE_URL}/rest/v1/task_handoffs" \
   -d "{
     \"from_agent\": \"${FROM_AGENT}\",
     \"to_agent\": \"${TO_AGENT}\",
-    \"task\": \"${TASK}\",
+    \"title\": \"${TASK}\",
     \"status\": \"pending\",
-    \"context\": {\"priority\": \"${PRIORITY}\", \"created_at\": \"$(date -u +%Y-%m-%dT%H:%M:%SZ)\"}
+    \"priority\": \"${PRIORITY}\"
   }")
 
 TASK_ID=$(echo "$RESULT" | jq -r '.[0].id // .id // "unknown"')

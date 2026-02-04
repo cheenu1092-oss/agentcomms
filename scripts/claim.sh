@@ -23,8 +23,7 @@ RESULT=$(curl -sS -X PATCH "${MC_SUPABASE_URL}/rest/v1/task_handoffs?id=eq.${TAS
   -H "Content-Type: application/json" \
   -H "Prefer: return=representation" \
   -d "{
-    \"status\": \"claimed\",
-    \"claimed_by\": \"${AGENT_ID}\",
+    \"status\": \"in_progress\",
     \"claimed_at\": \"$(date -u +%Y-%m-%dT%H:%M:%SZ)\"
   }")
 
