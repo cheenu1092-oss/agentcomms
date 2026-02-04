@@ -28,7 +28,7 @@ curl -sS -X POST "${MC_SUPABASE_URL}/rest/v1/agents" \
     \"id\": \"${AGENT_ID}\",
     \"display_name\": \"${DISPLAY_NAME:-${AGENT_ID}}\",
     \"role\": \"${ROLE:-agent}\",
-    \"agent_type\": \"${AGENT_TYPE:-worker}\",
+    \"agent_type\": \"${AGENT_TYPE:-specialist}\",
     \"capabilities\": ${CAPS_JSON},
     \"is_active\": true,
     \"comms_endpoint\": \"discord:${DISCORD_USER_ID:-unknown}\",
